@@ -43,7 +43,7 @@ class MyModule extends Module {
   void register(Container container) {
     container
       // Declare a single definition for Bloc class  
-      ..single<Repository>((s) => ProdRepository())
+      ..singleton<Repository>((s) => ProdRepository())
       // Declare a factory provider definition for Repository class
       ..factory((s) => Bloc(s.get());
   }
@@ -55,7 +55,7 @@ class MyDevModule extends Module {
   void register(Container container) {
     container
       // Declare a single definition for Bloc class  
-      ..single<Repository>((s) => DevRepository())
+      ..singleton<Repository>((s) => DevRepository())
       // Declare a factory provider definition for Repository class
       ..factory((s) => Bloc(s.get());
   }
