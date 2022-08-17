@@ -4,7 +4,7 @@ import '../container/container_application.dart';
 
 abstract class ServiceLocatorContext {
   Container get();
-  void setup(ServiceLocatorApplication koinApplication);
+  void setup(ServiceLocatorApplication application);
   void stop();
 }
 
@@ -15,8 +15,8 @@ class GlobalContext implements ServiceLocatorContext {
   ///
   /// Returns the global instance of the [Container].
   ///
-  /// If koin has not been started with "startKoin" an
-  /// IllegalStateException will be thrown.
+  /// If ServiceLocator has not been started with "startServiceLocator" an
+  /// Exception will be thrown.
   ///
   @override
   Container get() {
@@ -26,19 +26,16 @@ class GlobalContext implements ServiceLocatorContext {
     return _container!;
   }
 
-  ///
-  /// Start a Koin Application as StandAlone
-  ///
   @override
-  void setup(ServiceLocatorApplication koinApplication) {
+  void setup(ServiceLocatorApplication application) {
     if (_container != null) {
       throw Exception('ServiceLocatorApplication has already been started');
     }
-    _container = koinApplication.container;
+    _container = application.container;
   }
 
   ///
-  /// Stop current StandAlone Koin application
+  /// Stop current container
   ///
   @override
   void stop() {

@@ -4,48 +4,47 @@ import 'package:service_locator/container/container_application.dart';
 import '../container/container.dart';
 import 'context.dart';
 
-//ignore: avoid_classes_with_only_static_members
-/// Help hold any implementation of KoinContext
+/// Help hold any implementation of ServiceLocatorContext
 class ServiceLocatorContextHandler {
   static ServiceLocatorContext? _context;
 
   ////
-  ///Retrieve current KoinContext
+  /// Retrieve current ServiceLocatorContext
   ///
   static ServiceLocatorContext getContext() {
     if (_context == null) {
       throw Exception('''
-No Koin Context configured. Please use startKoin or koinApplication DSL. ''');
+Context not initialized. Please use startServiceLocator''');
     }
     return _context!;
   }
 
   ////
-  ///Retrieve current KoinContext
+  /// Retrieve current context
   ///
   static Container get() => getContext().get();
 
   ///
-  ///Register new KoinContext
+  ///Register new context
   ///
-  /// @throws IllegalStateException if already registered
+  /// @throws Exception if already registered
   ///
-  static void register(ServiceLocatorContext koinContext) {
+  static void register(ServiceLocatorContext context) {
     if (_context != null) {
       throw Exception('A ServiceLocatorContext is already started');
     }
-    _context = koinContext;
+    _context = context;
   }
 
   ///
-  /// Start a Koin Application on current KoinContext
+  /// Start a ServiceLocatorApplication on current context
   ///
-  static void start(ServiceLocatorApplication koinApplication) {
-    getContext().setup(koinApplication);
+  static void start(ServiceLocatorApplication application) {
+    getContext().setup(application);
   }
 
   ///
-  ///Stop current KoinContext & clear it
+  /// Close current context
   ///
   static void stop() {
     _context?.stop();

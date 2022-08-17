@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 import 'package:service_locator/container/container.dart';
-import 'package:service_locator/qualifier.dart';
 
 class GetItScope implements Scope {
   final GetIt getIt;
@@ -8,12 +7,12 @@ class GetItScope implements Scope {
   GetItScope(this.getIt);
 
   @override
-  T get<T extends Object>([Qualifier? qualifier]) {
+  T get<T extends Object>() {
     return getIt.get<T>();
   }
 
   @override
-  T getWithParam<T extends Object, P>(P parameter, {Qualifier? qualifier}) {
+  T getWithParam<T extends Object, P>(P parameter) {
     return getIt.get<T>(param1: parameter);
   }
 }
@@ -25,18 +24,14 @@ class GetItContainer implements Container {
 
   @override
   Container factory<T extends Object>(Creater<T> create,
-      {Qualifier? qualifier,
-      bool createdAtStart = false,
-      bool override = false}) {
+      {bool createdAtStart = false, bool override = false}) {
     getIt.registerFactory<T>(() => create(GetItScope(getIt)));
     return this;
   }
 
   @override
   Container factoryWithParam<T extends Object, A>(CreaterWithParam<T, A> create,
-      {Qualifier? qualifier,
-      bool createdAtStart = false,
-      bool override = false}) {
+      {bool createdAtStart = false, bool override = false}) {
     getIt.registerFactoryParam<T, A, dynamic>(
         (p1, p2) => create(GetItScope(getIt), p1));
 
@@ -44,24 +39,24 @@ class GetItContainer implements Container {
   }
 
   @override
-  Container single<T extends Object>(Creater<T> create,
-      {Qualifier? qualifier,
-      bool createdAtStart = false,
-      bool override = false}) {
+  Container singleton<T extends Object>(Creater<T> create,
+      {bool createdAtStart = false, bool override = false}) {
     getIt.registerLazySingleton(() => create(GetItScope(getIt)));
     return this;
   }
 
   @override
-  Container singleWithParam<T extends Object, A>(CreaterWithParam<T, A> create,
-      {Qualifier? qualifier,
-      bool createdAtStart = false,
-      bool override = false}) {
-    return this;
+  T get<T extends Object>() {
+    return getIt.get<T>();
   }
 
   @override
-  T get<T extends Object>([Qualifier? qualifier]) {
-    return getIt.get<T>();
+  T getWithParam<T extends Object, P>(P parameter) {
+    return getIt.get<T>(param1: parameter);
+  }
+
+  @override
+  void close() {
+    getIt.reset();
   }
 }

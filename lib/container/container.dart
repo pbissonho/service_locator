@@ -1,10 +1,8 @@
 import 'dart:core';
 
-import 'package:service_locator/qualifier.dart';
-
 abstract class Scope {
-  T get<T extends Object>([Qualifier? qualifier]);
-  T getWithParam<T extends Object, P>(P parameter, {Qualifier? qualifier});
+  T get<T extends Object>();
+  T getWithParam<T extends Object, P>(P parameter);
 }
 
 typedef Creater<T> = T Function(Scope scope);
@@ -12,50 +10,22 @@ typedef Creater<T> = T Function(Scope scope);
 typedef CreaterWithParam<T, A> = T Function(Scope scope, A param);
 
 abstract class Container {
-  /// Declare a singleton definition
-  Container single<T extends Object>(
-    Creater<T> create, {
-    Qualifier? qualifier,
-    bool createdAtStart = false,
-    bool override = false,
-  });
-
-  T get<T extends Object>([Qualifier? qualifier]);
-
-  ///
-  /// Declare a singleton definition
-  ///
-  Container singleWithParam<T extends Object, A>(
-    CreaterWithParam<T, A> create, {
-    Qualifier? qualifier,
-    bool createdAtStart = false,
-    bool override = false,
-  });
+  T get<T extends Object>();
+  T getWithParam<T extends Object, P>(P parameter);
 
   ///
   /// Declare a Factory definition
   ///
-  Container factory<T extends Object>(
-    Creater<T> create, {
-    Qualifier? qualifier,
-    bool createdAtStart = false,
-    bool override = false,
-  });
+  Container factory<T extends Object>(Creater<T> create);
+
+  /// Declare a singleton definition
+  Container singleton<T extends Object>(Creater<T> create);
 
   ///
   /// Declare a Factory definition
   ///
   Container factoryWithParam<T extends Object, A>(
-    CreaterWithParam<T, A> create, {
-    Qualifier? qualifier,
-    bool createdAtStart = false,
-    bool override = false,
-  });
+      CreaterWithParam<T, A> create);
 
-  /*
-  Options makeOptions({bool override = false, bool createdAtStart = false}) {
-    return Options(
-        isCreatedAtStart: createAtStart || createdAtStart,
-        override: this.override || override);
-  }*/
+  void close();
 }
