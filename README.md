@@ -1,8 +1,6 @@
 
 ## GetIt + Abstração and Provider
 
-Service Locator 
-
 A wrapper around GetIt service locator package.
 
 ## Motivation
@@ -14,6 +12,8 @@ Simplify and make using GetIt scalable.
  - Make code more testable
  - Provider is the default approach used in the flutter_bloc package
  - No code generation needed
+ - Código aberto para extensão
+ 
 
  
 ## Getting started
@@ -115,3 +115,15 @@ class MyApp extends StatelessWidget {
     );
   }
 }```
+
+### 
+
+Outras soluções 
+
+Koin.dart + Provider + BlocProvider
+Riverpod(apenas como service locator)
+
+
+
+
+
