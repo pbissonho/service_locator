@@ -116,14 +116,6 @@ class MyApp extends StatelessWidget {
   }
 }```
 
-### 
-
-Outras soluções 
-
-Koin.dart + Provider + BlocProvider
-Riverpod(apenas como service locator)
-
-
 
 
 
