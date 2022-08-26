@@ -1,5 +1,7 @@
 
-Service Locator
+## GetIt + Abstração and Provider
+
+Service Locator 
 
 A wrapper around GetIt service locator package.
 
@@ -10,6 +12,9 @@ Simplify and make using GetIt scalable.
  - Provides a base modular approach
  - Decrease coupling
  - Make code more testable
+ - Provider is the default approach used in the flutter_bloc package
+ - No code generation needed
+
  
 ## Getting started
 
